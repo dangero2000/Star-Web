@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>STAR Client Web Application</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+        }
+        select, input[type="text"], textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            margin-top: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            margin-top: 15px;
+        }
+        #status {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        #controls {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        #buttons {
+            display: flex;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="controls">
+        <h1>STAR Client Web Application</h1>
+
+        <label for="serverAddress">Server Address:</label>
+        <input type="text" id="serverAddress" placeholder="e.g., 127.0.0.1">
+
+        <label for="serverPort">Server Port:</label>
+        <input type="text" id="serverPort" placeholder="e.g., 7774">
+
+        <button id="connectButton">Connect</button>
+
+        <div id="connectionStatus">Not connected.</div>
+
+        <label for="voicesList">Available Voices:</label>
+        <select id="voicesList">
+            <option value="">-- No voices available --</option>
+        </select>
+
+        <label for="quickspeakInput">Quickspeak:</label>
+        <input type="text" id="quickspeakInput" placeholder="Type text and press Enter">
+
+        <label for="scriptInput">Enter Script:</label>
+        <textarea id="scriptInput" rows="10" placeholder="Enter your script here..."></textarea>
+
+        <div id="buttons">
+            <button id="renderButton">Render to WAV</button>
+        </div>
+
+        <div id="status"></div>
+    </div>
+
+    <!-- Include JSZip library from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+    <!-- Include your JavaScript code -->
+    <script src="app.js"></script>
+</body>
+</html>
