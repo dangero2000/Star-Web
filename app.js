@@ -35,7 +35,7 @@ function connectToServer() {
         return;
     }
 
-    const url = `ws://${host}:${port}/`;
+    const url = `wss://${host}:${port}/`;
 
     ws = new WebSocket(url);
 
