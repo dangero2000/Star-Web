@@ -14,8 +14,8 @@ const serverAddressInput = document.getElementById('serverAddress');
 const serverPortInput = document.getElementById('serverPort');
 const connectButton = document.getElementById('connectButton');
 const connectionStatus = document.getElementById('connectionStatus');
-const voicesList = document.getElementById('voicesList');
 const quickspeakForm = document.getElementById('quickspeakForm');
+const voicesList = document.getElementById('voicesList');
 const quickspeakInput = document.getElementById('quickspeakInput');
 const scriptInput = document.getElementById('scriptInput');
 const renderButton = document.getElementById('renderButton');
@@ -146,6 +146,8 @@ function onQuickspeakSubmit(event) {
     } else {
         alert('Please enter text and select a voice.');
     }
+
+    return false; // Some browsers require this to prevent default action
 }
 
 function starspeak(text) {

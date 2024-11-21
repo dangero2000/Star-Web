@@ -50,15 +50,18 @@
 
         <div id="connectionStatus">Not connected.</div>
 
-        <label for="voicesList">Available Voices:</label>
-        <select id="voicesList">
-            <option value="">-- No voices available --</option>
-        </select>
-
-        <!-- Wrap Quickspeak input in a form -->
+        <!-- Wrap voicesList and quickspeakInput in a form -->
         <form id="quickspeakForm">
+            <label for="voicesList">Available Voices:</label>
+            <select id="voicesList">
+                <option value="">-- No voices available --</option>
+            </select>
+
             <label for="quickspeakInput">Quickspeak:</label>
             <input type="text" id="quickspeakInput" placeholder="Type text and press Enter" enterkeyhint="send">
+
+            <!-- Add a submit button inside the form -->
+            <button type="submit">Send</button>
         </form>
 
         <label for="scriptInput">Enter Script:</label>
@@ -79,6 +82,6 @@
 
     <!-- Include your JavaScript code -->
     <script src="app.js"></script>
-    <p>Operating on commit 8</p>
+    <p>Operating on commit 9</p>
 </body>
 </html>
