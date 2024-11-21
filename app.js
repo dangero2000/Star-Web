@@ -15,6 +15,7 @@ const serverPortInput = document.getElementById('serverPort');
 const connectButton = document.getElementById('connectButton');
 const connectionStatus = document.getElementById('connectionStatus');
 const voicesList = document.getElementById('voicesList');
+const quickspeakForm = document.getElementById('quickspeakForm');
 const quickspeakInput = document.getElementById('quickspeakInput');
 const scriptInput = document.getElementById('scriptInput');
 const renderButton = document.getElementById('renderButton');
@@ -22,7 +23,7 @@ const statusDisplay = document.getElementById('status');
 
 // Event Listeners
 connectButton.addEventListener('click', connectToServer);
-quickspeakInput.addEventListener('keypress', onQuickspeakEnter);
+quickspeakForm.addEventListener('submit', onQuickspeakSubmit);
 renderButton.addEventListener('click', onRenderClick);
 
 // Connect to the server
@@ -35,7 +36,8 @@ function connectToServer() {
         return;
     }
 
-    const url = `wss://${host}:${port}/`;
+    const protocol = (location.protocol === 'https:') ? 'wss://' : 'ws://';
+    const url = `${protocol}${host}:${port}/`;
 
     ws = new WebSocket(url);
 
@@ -132,17 +134,17 @@ function updateVoicesList(voicesArray) {
     });
 }
 
-function onQuickspeakEnter(event) {
-    if (event.key === 'Enter') {
-        const text = quickspeakInput.value.trim();
-        const voice = voicesList.value;
+function onQuickspeakSubmit(event) {
+    event.preventDefault(); // Prevent the form from submitting and refreshing the page
 
-        if (text && voice) {
-            starspeak(`${voice}: ${text}`);
-            quickspeakInput.value = '';
-        } else {
-            alert('Please enter text and select a voice.');
-        }
+    const text = quickspeakInput.value.trim();
+    const voice = voicesList.value;
+
+    if (text && voice) {
+        starspeak(`${voice}: ${text}`);
+        quickspeakInput.value = ''; // Clear the input field after sending
+    } else {
+        alert('Please enter text and select a voice.');
     }
 }
 
@@ -152,12 +154,13 @@ function starspeak(text) {
         return;
     }
 
-    const dataHash = sha256(text);
-    if (demoCache[dataHash]) {
-        playAudioFromData(demoCache[dataHash]);
-    } else {
-        sendRequest(text, false);
-    }
+    sha256(text).then(function (dataHash) {
+        if (demoCache[dataHash]) {
+            playAudioFromData(demoCache[dataHash]);
+        } else {
+            sendRequest(text, false);
+        }
+    });
 }
 
 function sendRequest(text, rendering) {
@@ -166,16 +169,18 @@ function sendRequest(text, rendering) {
         return;
     }
 
-    const requestId = rendering ? renderID.toString() : sha256(text);
-    const lines = text.split('\n').map(line => line.trim()).filter(line => line && !line.startsWith(';'));
     if (rendering) {
-        itemCount = lines.length;
+        itemCount = text.split('\n').filter(line => line.trim() && !line.trim().startsWith(';')).length;
         renderCount = 0;
+        renderID = Math.floor(Math.random() * 0xffff); // Reset renderID for each new render
         displayStatus('Rendering started...');
     }
 
+    const requestId = rendering ? renderID.toString() : null;
+    const lines = text.split('\n').map(line => line.trim()).filter(line => line && !line.startsWith(';'));
+
     const message = {
-        id: requestId,
+        id: requestId || 'quickspeak',
         user: 2,
         request: lines
     };
@@ -226,8 +231,5 @@ function hex(buffer) {
     return hexCodes.join('');
 }
 
-// Include FileSaver.js from CDN
-// Add this line in your HTML before app.js
-// <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-
-// Note: If you include FileSaver.js, you can use the saveAs function directly
+// Note: FileSaver.js is included via CDN in the HTML file
+// You can use the saveAs function directly

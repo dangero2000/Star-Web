@@ -55,8 +55,11 @@
             <option value="">-- No voices available --</option>
         </select>
 
-        <label for="quickspeakInput">Quickspeak:</label>
-        <input type="text" id="quickspeakInput" placeholder="Type text and press Enter">
+        <!-- Wrap Quickspeak input in a form -->
+        <form id="quickspeakForm">
+            <label for="quickspeakInput">Quickspeak:</label>
+            <input type="text" id="quickspeakInput" placeholder="Type text and press Enter" enterkeyhint="send">
+        </form>
 
         <label for="scriptInput">Enter Script:</label>
         <textarea id="scriptInput" rows="10" placeholder="Enter your script here..."></textarea>
@@ -71,8 +74,11 @@
     <!-- Include JSZip library from CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
+    <!-- Include FileSaver.js from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
     <!-- Include your JavaScript code -->
     <script src="app.js"></script>
-<p>Opperating on commit 7</p>
+    <p>Operating on commit 8</p>
 </body>
 </html>
