@@ -12,3 +12,7 @@ This web client is similar in design to the NVGT user client, with a few notable
 
 * Rather than a config INI file, you must enter a server address and port on the page, then click the connect button
 * When rendering a script in WAV, the web app will zip up the WAV files and open your browers download prompt
+
+## How to Connect
+
+If you don't want to host the web app yourself, you can go [here](https://dangero2000.github.io/Star-Web/) to access it instead. Once you reach the page, please type star.lidolp.net in the server address box, then 443 in the port box.
