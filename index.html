@@ -34,6 +34,9 @@
             display: flex;
             gap: 10px;
         }
+        #quickspeakButton {
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -50,19 +53,16 @@
 
         <div id="connectionStatus">Not connected.</div>
 
-        <!-- Wrap voicesList and quickspeakInput in a form -->
-        <form id="quickspeakForm">
-            <label for="voicesList">Available Voices:</label>
-            <select id="voicesList">
-                <option value="">-- No voices available --</option>
-            </select>
+        <label for="voicesList">Available Voices:</label>
+        <select id="voicesList">
+            <option value="">-- No voices available --</option>
+        </select>
 
-            <label for="quickspeakInput">Quickspeak:</label>
-            <input type="text" id="quickspeakInput" placeholder="Type text and press Enter" enterkeyhint="send">
+        <label for="quickspeakInput">Quickspeak:</label>
+        <input type="text" id="quickspeakInput" placeholder="Type text">
 
-            <!-- Add a submit button inside the form -->
-            <button type="submit">Send</button>
-        </form>
+        <!-- Add the Speak button below the Quickspeak input -->
+        <button id="quickspeakButton">Speak</button>
 
         <label for="scriptInput">Enter Script:</label>
         <textarea id="scriptInput" rows="10" placeholder="Enter your script here..."></textarea>
@@ -82,6 +82,6 @@
 
     <!-- Include your JavaScript code -->
     <script src="app.js"></script>
-    <p>Operating on commit 9</p>
+    <p>Operating on commit 10</p>
 </body>
 </html>

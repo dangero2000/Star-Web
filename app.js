@@ -14,16 +14,17 @@ const serverAddressInput = document.getElementById('serverAddress');
 const serverPortInput = document.getElementById('serverPort');
 const connectButton = document.getElementById('connectButton');
 const connectionStatus = document.getElementById('connectionStatus');
-const quickspeakForm = document.getElementById('quickspeakForm');
 const voicesList = document.getElementById('voicesList');
 const quickspeakInput = document.getElementById('quickspeakInput');
+const quickspeakButton = document.getElementById('quickspeakButton'); // New Speak button
 const scriptInput = document.getElementById('scriptInput');
 const renderButton = document.getElementById('renderButton');
 const statusDisplay = document.getElementById('status');
 
 // Event Listeners
 connectButton.addEventListener('click', connectToServer);
-quickspeakForm.addEventListener('submit', onQuickspeakSubmit);
+quickspeakInput.addEventListener('keypress', onQuickspeakEnter);
+quickspeakButton.addEventListener('click', onQuickspeakButtonClick); // Listener for Speak button
 renderButton.addEventListener('click', onRenderClick);
 
 // Connect to the server
@@ -134,20 +135,27 @@ function updateVoicesList(voicesArray) {
     });
 }
 
-function onQuickspeakSubmit(event) {
-    event.preventDefault(); // Prevent the form from submitting and refreshing the page
+function onQuickspeakEnter(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault(); // Prevent form submission or default behavior
+        quickspeak(); // Call the quickspeak function
+    }
+}
 
+function onQuickspeakButtonClick() {
+    quickspeak();
+}
+
+function quickspeak() {
     const text = quickspeakInput.value.trim();
     const voice = voicesList.value;
 
     if (text && voice) {
         starspeak(`${voice}: ${text}`);
-        quickspeakInput.value = ''; // Clear the input field after sending
+        quickspeakInput.value = '';
     } else {
         alert('Please enter text and select a voice.');
     }
-
-    return false; // Some browsers require this to prevent default action
 }
 
 function starspeak(text) {
@@ -232,6 +240,3 @@ function hex(buffer) {
     }
     return hexCodes.join('');
 }
-
-// Note: FileSaver.js is included via CDN in the HTML file
-// You can use the saveAs function directly
